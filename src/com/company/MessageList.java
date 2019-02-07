@@ -38,4 +38,9 @@ public class MessageList {
         }
         return sb.toString();
     }
+
+    public int size()
+    {
+        return masterList.size();
+    }
 }

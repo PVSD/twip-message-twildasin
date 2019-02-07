@@ -12,9 +12,9 @@ public class Main {
         System.out.println("Welcome to TextMessenger 5.0\nAt any point, you will be asked to enter your name/number, and then next the message you want to send.");
         System.out.println("When asked for name/number you can type a \"keyword\" to make the messenger perform a different function.\nHere are the list of keywords:");
         System.out.println("\n-CreateConversation\t\tCreates a new conversation");
-        System.out.println("-DeleteMessage\t\t\t\tDeletes a message after user imports the time");
+        System.out.println("-DeleteMessage\t\t\t\tDeletes a message from CURRENT conversation (user inputs the time)");
         System.out.println("-SwitchConversation\t\tChanges the conversation the user to messaging in");
-        System.out.println("-MoveMessage\t\t\t\tMoves the message (given sent time) from one conversation to the other");
+        System.out.println("-MoveMessage\t\t\t\tMoves the message (given sent time) from current conversation to another existing one");
         System.out.println("-PrintConversation\t\t\tPrints the entire conversation");
         System.out.println("-Exit\t\t\tEnds the program");
         System.out.println("\t***Please type keywords verbatim***");
@@ -58,13 +58,38 @@ public class Main {
                 System.out.println(temp);
                 System.out.println("\nPlease enter the time of the message from the conversation \"" + temp.thisName + "\" that you wish to be deleted. Example: \"02:12:34\"");
                 keyIn = kbin.nextLine();
-                while (true)
+                Message subTemp;
+                boolean foundPos = false;
+                while (!foundPos)
                 {
-                    
+                    if(keyIn.equalsIgnoreCase("Exit"))
+                        break;
+                    else
+                    {
+
+                        keyIn = keyIn.replaceAll(":", "");
+                        System.out.println(keyIn);
+                        for (int i = 0; i < temp.size(); i++)
+                        {
+                            subTemp = (Message) temp.masterList.get(i);
+                            System.out.println("Long  " + subTemp.time);
+                            if(Long.parseLong(keyIn) == subTemp.time)
+                            {
+                                temp.masterList.remove(i);
+                                foundPos = true;
+                            }
+                        }
+                        if(!foundPos)
+                        {
+                            System.out.println("No message matching that time found. Please enter \"Exit\" or input another time");
+                            keyIn = kbin.nextLine();
+                        }
+                    }
                 }
+                System.out.println(temp + "\nMessage successfully deleted.");
 
             }
-            else if(input.equalsIgnoreCase("SwitchConversation") && !firstTime)
+            else if(input.equalsIgnoreCase("SwitchConversation") && !firstTime && temp.size() > 0 && convos.size() > 1)
             {
 
             }
