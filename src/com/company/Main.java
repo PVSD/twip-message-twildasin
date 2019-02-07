@@ -243,7 +243,6 @@ public class Main {
                 keyIn = kbin.nextLine();
                 MessageList subTemp = null;
                 boolean foundPos = false;
-                int posTemp = pos;
                 while (!foundPos)
                 {
                     if(keyIn.equalsIgnoreCase("Exit"))
@@ -277,6 +276,7 @@ public class Main {
             }
             //endregion
 
+            //region Else input message
             else
             {
                 sender = input;
@@ -284,6 +284,8 @@ public class Main {
                 msg = kbin.nextLine();
                 temp.add(new Message(sender, msg));
             }
+            //endregion
+
             firstTime = false;
         }
 
