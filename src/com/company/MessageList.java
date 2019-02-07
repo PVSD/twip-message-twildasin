@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class MessageList {
 
-    List masterList = new ArrayList<Message>();
+    List <Message> masterList  = new ArrayList();
     String thisName;
 
     public MessageList (String n)
@@ -19,6 +19,34 @@ public class MessageList {
         masterList.add(m);
         System.out.println(this.toString());
 
+    }
+
+    public void addSort (Message m)
+    {
+        Message temp;
+        Message before;
+        for(int i = 0; i < masterList.size(); i++)
+        {
+            temp = masterList.get(i);
+            if(i == 0 && m.time < temp.time)
+            {
+                masterList.add(0, m);
+                break;
+            }
+            else if (i > 0)
+            {
+                before = masterList.get(i-1);
+                if(m.time > before.time && m.time <= temp.time)
+                {
+                    masterList.add(i, m);
+                    break;
+                }
+                else if (i == masterList.size() - 1 && m.time > temp.time)
+                {
+                    masterList.add(m);
+                }
+            }
+        }
     }
 
     public String toString()
