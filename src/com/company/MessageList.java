@@ -18,9 +18,7 @@ public class MessageList {
     {
         masterList.add(m);
         System.out.println(this.toString());
-        /*String tpart;;
-        tpart = Long.toString(m.time);
-        System.out.println(tpart.substring(0,2) + ":" + tpart.substring(2,4) + ":" + tpart.substring(4,6) + "\t" + m.numSend + ":\t" + m.txtMsg);*/
+
     }
 
     public String toString()

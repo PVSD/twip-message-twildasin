@@ -35,6 +35,7 @@ public class Main {
         MessageList temp;
         String keyIn;
         boolean firstTime = true;
+        boolean moreThanOneCon = false;
         while(true)
         {
             temp = (MessageList) convos.get(pos);
@@ -52,6 +53,7 @@ public class Main {
                 convos.add(new MessageList(keyIn));
                 pos = convos.size() - 1;
                 System.out.println(keyIn + " conversation successfully created. " + keyIn + " conversation selected.");
+                moreThanOneCon = true;
             }
             else if(input.equalsIgnoreCase("DeleteMessage") && !firstTime)
             {
@@ -89,9 +91,40 @@ public class Main {
                 System.out.println(temp + "\nMessage successfully deleted.");
 
             }
-            else if(input.equalsIgnoreCase("SwitchConversation") && !firstTime && temp.size() > 0 && convos.size() > 1)
+            else if(input.equalsIgnoreCase("SwitchConversation") && !firstTime && moreThanOneCon)
             {
 
+                System.out.println(temp);
+                System.out.println("\nPlease enter the name of of the conversation you would like to switch to");
+                keyIn = kbin.nextLine();
+                MessageList subTemp;
+                boolean foundPos = false;
+                while (!foundPos)
+                {
+                    if(keyIn.equalsIgnoreCase("Exit"))
+                        break;
+                    else
+                    {
+
+                        System.out.println(keyIn);
+                        for (int i = 0; i < convos.size(); i++)
+                        {
+                            subTemp = convos.get(i);
+                            System.out.println(subTemp.thisName);
+                            if(subTemp.thisName.equalsIgnoreCase(keyIn))
+                            {
+                                pos = i;
+                                foundPos = true;
+                            }
+                        }
+                        if(!foundPos)
+                        {
+                            System.out.println("No conversation matching that name found. Please enter \"Exit\" or input another name");
+                            keyIn = kbin.nextLine();
+                        }
+                    }
+                }
+                System.out.println(temp + "\n\nSuccessfully switched to " + keyIn + " conversation.");
             }
             else if(input.equalsIgnoreCase("MoveMessage") && !firstTime)
             {
